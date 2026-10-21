@@ -1,0 +1,24 @@
+/* DET-001 — run as a separate Splunk search; prerequisite: parsed WinEventLog fields */
+index=lab_windows EventCode=4625
+| bin _time span=10m
+| stats count as failed_attempts by _time host src_ip user
+| where failed_attempts>=5
+| eval detection_id="DET-001", technique="T1110"
+| table _time host user src_ip failed_attempts detection_id technique
+
+/* DET-002 — run as a separate search */
+index=lab_windows EventCode=4688
+| where match(lower(CommandLine),"-(enc|encodedcommand)(\\s|$)")
+| eval detection_id="DET-002", technique="T1059.001"
+| table _time host user NewProcessName CommandLine detection_id technique
+
+/* DET-003 — run as a separate search */
+index=lab_windows EventCode=7045
+| where like(lower(ServiceName),"lab-%")
+| eval detection_id="DET-003", technique="T1543.003"
+| table _time host ServiceName detection_id technique
+
+/* DET-004 — run as a separate search */
+index=lab_windows EventCode=4720
+| eval detection_id="DET-004", technique="T1136.001"
+| table _time host user TargetUserName detection_id technique

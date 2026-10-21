@@ -1,0 +1,6 @@
+[
+ {"id":"DET-001","name":"Failed logon burst","severity":"medium","attack":"T1110","description":"Five or more failed logons for the same user and source IP within a 10-minute bin","false_positives":"Mistyped passwords, service account configuration"},
+ {"id":"DET-002","name":"Encoded PowerShell command line","severity":"medium","attack":"T1059.001","description":"A 4688 process creation event includes -enc or -EncodedCommand","false_positives":"Legitimate administrative automation"},
+ {"id":"DET-003","name":"Lab service installation","severity":"low","attack":"T1543.003","description":"A System 7045 event for lab-prefixed service names","false_positives":"Expected service deployment in a test environment"},
+ {"id":"DET-004","name":"Account creation event","severity":"low","attack":"T1136.001","description":"Windows 4720 account creation event; review authorization","false_positives":"Approved provisioning"}
+]
